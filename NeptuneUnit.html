@@ -8,22 +8,21 @@
 <style>
     body {
         margin: 0;
+        padding: 0;
         font-family: Arial, sans-serif;
-        background: #0b0f1a;
         color: white;
-        background-image: url('https://images.unsplash.com/photo-1462331940025-496dfbfc7564');
+        background: #090d17 url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee') no-repeat center center fixed;
         background-size: cover;
-        background-position: center;
     }
 
-    /* Navigation Bar */
+    /* NAV BAR */
     nav {
         width: 100%;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 15px 40px;
-        background: rgba(0,0,0,0.5);
+        padding: 12px 25px;
+        background: rgba(0, 0, 0, 0.45);
         backdrop-filter: blur(6px);
         position: fixed;
         top: 0;
@@ -33,67 +32,86 @@
     nav a {
         color: white;
         text-decoration: none;
-        margin: 0 15px;
+        margin: 0 14px;
         font-size: 18px;
-        transition: 0.2s;
+        font-weight: 500;
+        transition: 0.2s ease;
     }
 
     nav a:hover {
-        color: #87baff;
+        color: #8ab5ff;
     }
 
-    /* Logo */
+    /* LOGO CIRCLE */
     .logo {
-        height: 55px;
-        filter: drop-shadow(0 0 8px #000);
+        width: 65px;
+        height: 65px;
+        object-fit: cover;
+        border-radius: 50%;
+        box-shadow: 0 0 10px rgba(0,0,0,0.7);
     }
 
-    /* Center Section */
+    /* HERO SECTION */
     .hero {
-        margin-top: 140px;
         text-align: center;
+        padding: 180px 20px 60px;
         animation: fadeIn 1.4s ease;
     }
 
     .hero h1 {
-        font-size: 50px;
-        margin-bottom: 20px;
+        font-size: 48px;
+        margin-bottom: 12px;
+        text-shadow: 0 0 14px #000;
+    }
+
+    .hero p {
+        font-size: 20px;
+        margin-bottom: 30px;
         text-shadow: 0 0 10px #000;
     }
 
-    /* Discord Login Button */
+    /* LOGIN BUTTON */
     .login-btn {
         display: inline-block;
-        padding: 16px 28px;
-        background: #5562ea;
+        padding: 18px 32px;
+        background: #5865F2;
         color: white;
-        border-radius: 10px;
-        font-size: 20px;
+        border-radius: 12px;
+        font-size: 22px;
         font-weight: bold;
         text-decoration: none;
-        transition: 0.2s;
-        box-shadow: 0 0 12px rgba(0,0,0,0.6);
+        transition: 0.25s ease;
+        box-shadow: 0 0 12px rgba(0,0,0,0.55);
     }
 
     .login-btn:hover {
-        transform: scale(1.07);
-        background: #6773ff;
+        transform: scale(1.08);
+        background: #6e7bff;
     }
 
+    /* ANIMATION */
     @keyframes fadeIn {
         from { opacity: 0; transform: translateY(20px); }
         to { opacity: 1; transform: translateY(0); }
     }
+
+    /* Mobile Fixes */
+    @media(max-width: 600px) {
+        .hero h1 { font-size: 36px; }
+        .login-btn { font-size: 18px; padding: 16px 28px; }
+        nav a { margin: 0 8px; font-size: 16px; }
+    }
 </style>
 </head>
+
 <body>
 
 <nav>
     <img src="Untitled design (7).png" class="logo" alt="NeptuneUnit Logo">
     <div>
         <a href="#">Home</a>
-        <a href="#">Commands</a>
         <a href="#">Dashboard</a>
+        <a href="#">Commands</a>
         <a href="#">Support</a>
     </div>
 </nav>
@@ -101,10 +119,10 @@
 <div class="hero">
     <h1>Welcome to NeptuneUnit</h1>
     <p>The official control panel for your Discord bot</p>
-    <br><br>
 
-    <a class="login-btn" href="https://discord.com/oauth2/authorize?client_id=1444474585511624854">
-        Login With Discord
+    <a class="login-btn"
+       href="https://discord.com/oauth2/authorize?client_id=1444474585511624854&response_type=code&redirect_uri=https%3A%2F%2Fneptuneunit.duckdns.org%2FNeptuneUnit.html&scope=identify%20guilds">
+       Login With Discord
     </a>
 </div>
 
