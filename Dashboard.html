@@ -15,7 +15,7 @@
         padding: 0;
         font-family: Arial, sans-serif;
         color: white;
-        background: #090d17 url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee') no-repeat center center fixed;
+        background: #090d17 url('images (4).jpeg') no-repeat center center fixed;
         background-size: cover;
         min-height: 100vh;
     }
@@ -278,19 +278,51 @@
 </div>
 
 <script>
-// Check authentication
+// Check authentication and handle OAuth callback
 window.addEventListener('DOMContentLoaded', () => {
+    // First check if this is an OAuth callback
+    const urlParams = new URLSearchParams(window.location.search);
+    const code = urlParams.get('code');
+    
+    if (code) {
+        // This is an OAuth callback - process it
+        console.log('Processing OAuth callback with code:', code);
+        
+        // Simulated user data - replace with actual API call in production
+        const mockUser = {
+            id: '123456789',
+            username: 'DiscordUser',
+            discriminator: '0001',
+            avatar: 'avatar_hash'
+        };
+        
+        // Store token and user info
+        localStorage.setItem('discord_token', 'mock_token_' + code);
+        localStorage.setItem('discord_user', JSON.stringify(mockUser));
+        
+        // Remove the code from URL and reload clean
+        window.history.replaceState({}, document.title, '/Dashboard.html');
+        
+        // Now proceed to load dashboard
+        loadDashboard(mockUser);
+        return;
+    }
+    
+    // Not an OAuth callback - check if already logged in
     const token = localStorage.getItem('discord_token');
     const userJson = localStorage.getItem('discord_user');
     
     if (!token || !userJson) {
         // Not logged in, redirect to home
-        window.location.href = 'index.html';
+        window.location.href = 'https://neptuneunit.duckdns.org/NeptuneUnit.html';
         return;
     }
     
     const user = JSON.parse(userJson);
-    
+    loadDashboard(user);
+});
+
+function loadDashboard(user) {
     // Update user info in nav
     document.getElementById('userName').textContent = user.username;
     if (user.avatar) {
@@ -299,7 +331,7 @@ window.addEventListener('DOMContentLoaded', () => {
     
     // Load servers
     loadServers();
-});
+}
 
 function loadServers() {
     // Mock server data - In production, fetch from your backend API
@@ -361,7 +393,7 @@ function logout() {
     localStorage.removeItem('discord_user');
     
     // Redirect to home
-    window.location.href = 'index.html';
+    window.location.href = 'https://neptuneunit.duckdns.org/NeptuneUnit.html';
 }
 </script>
 
