@@ -11,11 +11,10 @@
         padding: 0;
         font-family: Arial, sans-serif;
         color: white;
-        background: #090d17 url('images (4).jpeg') no-repeat center center fixed;
+        background: #090d17 url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee') no-repeat center center fixed;
         background-size: cover;
     }
 
-    /* NAV BAR */
     nav {
         width: 100%;
         display: flex;
@@ -27,6 +26,7 @@
         position: fixed;
         top: 0;
         z-index: 20;
+        box-sizing: border-box;
     }
 
     nav a {
@@ -42,7 +42,6 @@
         color: #8ab5ff;
     }
 
-    /* LOGO CIRCLE */
     .logo {
         width: 65px;
         height: 65px;
@@ -51,7 +50,6 @@
         box-shadow: 0 0 10px rgba(0,0,0,0.7);
     }
 
-    /* HERO SECTION */
     .hero {
         text-align: center;
         padding: 180px 20px 60px;
@@ -70,7 +68,6 @@
         text-shadow: 0 0 10px #000;
     }
 
-    /* LOGIN BUTTON */
     .login-btn {
         display: inline-block;
         padding: 18px 32px;
@@ -82,6 +79,7 @@
         text-decoration: none;
         transition: 0.25s ease;
         box-shadow: 0 0 12px rgba(0,0,0,0.55);
+        cursor: pointer;
     }
 
     .login-btn:hover {
@@ -89,13 +87,11 @@
         background: #6e7bff;
     }
 
-    /* ANIMATION */
     @keyframes fadeIn {
         from { opacity: 0; transform: translateY(20px); }
         to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Mobile Fixes */
     @media(max-width: 600px) {
         .hero h1 { font-size: 36px; }
         .login-btn { font-size: 18px; padding: 16px 28px; }
@@ -109,8 +105,8 @@
 <nav>
     <img src="Untitled design (7).png" class="logo" alt="NeptuneUnit Logo">
     <div>
-        <a href="#">Home</a>
-        <a href="#">Dashboard</a>
+        <a href="index.html">Home</a>
+        <a href="dashboard.html">Dashboard</a>
         <a href="#">Commands</a>
         <a href="#">Support</a>
     </div>
@@ -120,11 +116,63 @@
     <h1>Welcome to NeptuneUnit</h1>
     <p>The official control panel for your Discord bot</p>
 
-    <a class="login-btn"
-       href="https://discord.com/oauth2/authorize?client_id=1444474585511624854&response_type=code&redirect_uri=https%3A%2F%2Fneptuneunit.duckdns.org%2FNeptuneUnit.html&scope=identify%20guilds">
+    <a class="login-btn" id="loginBtn">
        Login With Discord
     </a>
 </div>
+
+<script>
+// Check if already logged in on page load
+window.addEventListener('DOMContentLoaded', () => {
+    const token = localStorage.getItem('discord_token');
+    const user = localStorage.getItem('discord_user');
+    
+    if (token && user) {
+        // User is logged in, redirect to dashboard
+        window.location.href = 'dashboard.html';
+    }
+});
+
+// Handle OAuth callback
+const urlParams = new URLSearchParams(window.location.search);
+const code = urlParams.get('code');
+
+if (code) {
+    // Exchange code for token (this would normally be done server-side)
+    // For demo purposes, we'll simulate a successful login
+    
+    // In production, send code to your backend:
+    // fetch('/api/discord/callback', { method: 'POST', body: JSON.stringify({ code }) })
+    
+    // Simulated user data - replace with actual API call
+    const mockUser = {
+        id: '123456789',
+        username: 'DiscordUser',
+        discriminator: '0001',
+        avatar: 'avatar_hash'
+    };
+    
+    // Store token and user info
+    localStorage.setItem('discord_token', 'mock_token_' + code);
+    localStorage.setItem('discord_user', JSON.stringify(mockUser));
+    
+    // Redirect to dashboard
+    window.location.href = 'dashboard.html';
+}
+
+// Login button click
+document.getElementById('loginBtn').addEventListener('click', (e) => {
+    e.preventDefault();
+    
+    const clientId = '1444474585511624854';
+    const redirectUri = encodeURIComponent(window.location.origin + '/index.html');
+    const scope = 'identify guilds';
+    
+    const discordAuthUrl = `https://discord.com/oauth2/authorize?client_id=${clientId}&response_type=code&redirect_uri=${redirectUri}&scope=${scope}`;
+    
+    window.location.href = discordAuthUrl;
+});
+</script>
 
 </body>
 </html>
