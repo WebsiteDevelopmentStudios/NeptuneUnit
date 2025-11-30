@@ -105,8 +105,8 @@
 <nav>
     <img src="Untitled design (7).png" class="logo" alt="NeptuneUnit Logo">
     <div>
-        <a href="index.html">Home</a>
-        <a href="dashboard.html">Dashboard</a>
+        <a href="https://neptuneunit.duckdns.org/NeptuneUnit.html">Home</a>
+        <a href="https://neptuneunit.duckdns.org/Dashboard.html">Dashboard</a>
         <a href="#">Commands</a>
         <a href="#">Support</a>
     </div>
@@ -129,7 +129,7 @@ window.addEventListener('DOMContentLoaded', () => {
     
     if (token && user) {
         // User is logged in, redirect to dashboard
-        window.location.href = 'dashboard.html';
+        window.location.href = 'https://neptuneunit.duckdns.org/Dashboard.html';
     }
 });
 
@@ -138,26 +138,9 @@ const urlParams = new URLSearchParams(window.location.search);
 const code = urlParams.get('code');
 
 if (code) {
-    // Exchange code for token (this would normally be done server-side)
-    // For demo purposes, we'll simulate a successful login
-    
-    // In production, send code to your backend:
-    // fetch('/api/discord/callback', { method: 'POST', body: JSON.stringify({ code }) })
-    
-    // Simulated user data - replace with actual API call
-    const mockUser = {
-        id: '123456789',
-        username: 'DiscordUser',
-        discriminator: '0001',
-        avatar: 'avatar_hash'
-    };
-    
-    // Store token and user info
-    localStorage.setItem('discord_token', 'mock_token_' + code);
-    localStorage.setItem('discord_user', JSON.stringify(mockUser));
-    
-    // Redirect to dashboard
-    window.location.href = 'dashboard.html';
+    // This page received the OAuth callback, but we want Dashboard.html to handle it
+    // Redirect to Dashboard.html with the code
+    window.location.href = 'https://neptuneunit.duckdns.org/Dashboard.html?code=' + code;
 }
 
 // Login button click
@@ -165,10 +148,10 @@ document.getElementById('loginBtn').addEventListener('click', (e) => {
     e.preventDefault();
     
     const clientId = '1444474585511624854';
-    const redirectUri = encodeURIComponent(window.location.origin + '/index.html');
+    const redirectUri = encodeURIComponent('https://neptuneunit.duckdns.org/Dashboard.html');
     const scope = 'identify guilds';
     
-    const discordAuthUrl = `https://discord.com/oauth2/authorize?client_id=1444474585511624854&response_type=code&redirect_uri=https%3A%2F%2Fneptuneunit.duckdns.org%2FDashboard.html&scope=email+guilds+guilds.members.read+guilds.channels.read+gdm.join+connections+identify+guilds.join`;
+    const discordAuthUrl = `https://discord.com/oauth2/authorize?client_id=${clientId}&response_type=code&redirect_uri=${redirectUri}&scope=${scope}`;
     
     window.location.href = discordAuthUrl;
 });
